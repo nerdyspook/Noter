@@ -1,0 +1,42 @@
+/* ======================= Card ====================== */
+.card__container {
+    background-color: var(--gray-color);
+    max-width: 35rem;
+    margin: var(--sp-1);
+    padding: var(--sp-1);
+    border: 1px solid var(--text-color-light);
+    border-radius: 0.4rem;
+
+    .title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: var(--sp-0-75);
+        p {
+            font-size: var(--h2-font-size);
+            font-weight: var(--font-semi-bold);
+        }
+    }
+
+    .icons > * {
+        font-size: var(--h3-font-size);
+        margin: 0 var(--sp-0-5);
+        cursor: pointer;
+    }
+
+    .data {
+        font-size: var(--small-font-size);
+    }
+
+    .bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: var(--sp-0-75);
+
+        .date {
+            color: var(--text-color-light);
+            font-size: var(--small-font-size);
+        }
+    }
+}
