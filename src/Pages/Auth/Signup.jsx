@@ -1,8 +1,33 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { addNewUser } from "../../utilities/add-new-user";
 import "./Auth.scss";
 
 const Signup = () => {
+    const navigate = useNavigate();
+
+    const EMAIL_REGEX = new RegExp(
+        "^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])$"
+    );
+
+    const [userDetail, setUserDetail] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+    });
+
+    const handleChange = (e) => {
+        setUserDetail({
+            ...userDetail,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const { dispatchAuth } = useAuth();
+    const { firstName, lastName, email, password } = userDetail;
+
     return (
         <main className="auth_container main">
             <form>
@@ -18,6 +43,7 @@ const Signup = () => {
                             name="firstName"
                             placeholder="Type here"
                             id="firstname"
+                            onChange={handleChange}
                         />
                     </div>
                     <div className="input__container name">
@@ -27,6 +53,7 @@ const Signup = () => {
                             name="lastName"
                             placeholder="Type here"
                             id="lastname"
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -38,6 +65,7 @@ const Signup = () => {
                         name="email"
                         placeholder="Type here"
                         id="email"
+                        onChange={handleChange}
                     />
                 </div>
 
@@ -48,6 +76,7 @@ const Signup = () => {
                         type="password"
                         name="password"
                         id="password"
+                        onChange={handleChange}
                     />
                 </div>
 
@@ -56,7 +85,25 @@ const Signup = () => {
                     <label htmlFor="updates">Sign up for email updates</label>
                 </div>
 
-                <div className="btn signup__btn">Sign Up</div>
+                <div
+                    className="btn signup__btn"
+                    onClick={() => {
+                        firstName && lastName && email && password
+                            ? !EMAIL_REGEX.test(email)
+                                ? alert("Please Enter valid email")
+                                : addNewUser(
+                                      firstName,
+                                      lastName,
+                                      email,
+                                      password,
+                                      dispatchAuth,
+                                      navigate
+                                  )
+                            : alert("Please fill all the fields");
+                    }}
+                >
+                    Sign Up
+                </div>
 
                 <div className="login__container">
                     <p>
