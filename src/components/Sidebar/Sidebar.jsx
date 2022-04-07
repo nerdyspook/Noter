@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-// import { CgChevronDownR } from "react-icons/cg";
 import {
     AiOutlineDelete,
     AiOutlineHome,
