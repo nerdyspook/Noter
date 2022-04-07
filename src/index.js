@@ -5,6 +5,7 @@ import App from "./App";
 import { makeServer } from "./server";
 import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./contexts/AuthContext";
+import { NoteContextProvider } from "./contexts/NoteContext";
 
 const container = document.getElementById("root");
 const root = ReactDOMClient.createRoot(container);
@@ -16,7 +17,9 @@ root.render(
     <React.StrictMode>
         <BrowserRouter>
             <AuthContextProvider>
-                <App />
+                <NoteContextProvider>
+                    <App />
+                </NoteContextProvider>
             </AuthContextProvider>
         </BrowserRouter>
     </React.StrictMode>

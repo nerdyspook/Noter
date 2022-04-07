@@ -26,7 +26,16 @@ export const addNewUser = async (
                 payload: response.data.createdUser,
             });
             localStorage.setItem("token", response.data.encodedToken);
-            navigate("/");
+            localStorage.setItem(
+                "firstName",
+                response.data.createdUser.firstName
+            );
+            localStorage.setItem(
+                "lastName",
+                response.data.createdUser.lastName
+            );
+            localStorage.setItem("email", response.data.createdUser.email);
+            navigate("/notes");
         }
     } catch (e) {
         console.log("Error: ", e);

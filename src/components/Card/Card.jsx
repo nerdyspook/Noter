@@ -6,27 +6,35 @@ import { MdLabelOutline } from "react-icons/md";
 import { GoArchive } from "react-icons/go";
 import { AiOutlineDelete } from "react-icons/ai";
 import "./Card.scss";
+import { useNote } from "../../contexts/NoteContext";
 
-const Card = () => {
+const Card = ({ note }) => {
+    const { noteTitle, noteData, createdAt, id } = note;
+    const date = createdAt.slice(0, 10);
+
+    const { stateNote, dispatchNote } = useNote();
+
     return (
         <div className="card__container">
             <div className="title">
-                <p>Title</p>
+                <p>{noteTitle}</p>
                 <div className="icons">
-                    <FiEdit3 />
+                    <FiEdit3
+                        onClick={() =>
+                            dispatchNote({
+                                type: "EDIT",
+                                payload: { show: true, noteInfo: note },
+                            })
+                        }
+                    />
                     <BsFillPinFill />
                 </div>
             </div>
 
-            <div className="data">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Exercitationem fugit, ipsa corporis cumque ipsam dolor nihil
-                illo! Saepe pariatur, asperiores iure iusto, sint adipisci neque
-                error voluptas sed quaerat modi.
-            </div>
+            <div className="data">{noteData}</div>
 
             <div className="bottom">
-                <div className="date">Created on 6-4-2022</div>
+                <div className="date">Created on {date}</div>
                 <div className="icons">
                     <IoColorPaletteOutline />
                     <MdLabelOutline />

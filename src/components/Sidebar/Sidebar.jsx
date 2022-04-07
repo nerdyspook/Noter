@@ -9,8 +9,10 @@ import { MdLabelOutline } from "react-icons/md";
 import { GoArchive } from "react-icons/go";
 import { CgProfile } from "react-icons/cg";
 import "./Sidebar.scss";
+import { useNote } from "../../contexts/NoteContext";
 
 const Sidebar = () => {
+    const { dispatchNote } = useNote();
     const [showMobile, setShowMobile] = useState(false);
     return (
         <section className="sidebar">
@@ -59,7 +61,17 @@ const Sidebar = () => {
                     </li>
                 </ul>
             </div>
-            <div className="btn">Create new note</div>
+            <div
+                className="btn"
+                onClick={() => {
+                    dispatchNote({
+                        type: "DISPLAY_NOTE_EDITOR",
+                        payload: { show: true },
+                    });
+                }}
+            >
+                Create new note
+            </div>
         </section>
     );
 };
