@@ -142,3 +142,25 @@ button:active {
     max-width: 1440px;
     margin: 0 auto;
 }
+
+.overlay {
+    width: 100vw;
+    position: absolute;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    z-index: var(--z-modal);
+}
+
+.modal {
+    border-radius: 0.25rem;
+    padding: 1rem;
+    padding-top: 2.5rem;
+    width: 80%;
+    max-width: 25rem;
+}

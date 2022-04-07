@@ -16,8 +16,10 @@ const Landing = () => {
                         boost your efficiency without any efforts.
                     </p>
 
-                    <div className="join btn">Join Now</div>
-                    <Link to="/notes" className="link">
+                    <Link to="/signup" className="join btn">
+                        Join Now
+                    </Link>
+                    <Link to="/login" className="link">
                         Already have an account?
                     </Link>
                 </div>

@@ -1,0 +1,28 @@
+.newnote__container {
+    position: relative;
+    .top {
+        .close_btn {
+            font-size: var(--h2-font-size);
+            position: absolute;
+            right: -0.5rem;
+            top: -1.9rem;
+        }
+    }
+
+    .note__title,
+    .note__body {
+        // position: absolute;
+        display: block;
+        width: 100%;
+        border-radius: 0.25rem;
+        border: 1px solid var(--text-color-light);
+        padding: var(--sp-0-5);
+        margin-bottom: var(--sp-0-5);
+        font-size: var(--small-font-size);
+    }
+
+    .save {
+        border-radius: 0.25rem;
+        margin-bottom: auto;
+    }
+}
