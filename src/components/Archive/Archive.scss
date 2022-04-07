@@ -10,6 +10,13 @@
         font-weight: var(--font-semi-bold);
         letter-spacing: 1.5px;
     }
+
+    .edit,
+    .pin,
+    .paint,
+    .tag {
+        display: none;
+    }
 }
 
 @media screen and (min-width: 768px) {
