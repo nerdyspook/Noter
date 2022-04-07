@@ -17,7 +17,7 @@ const Landing = () => {
                     </p>
 
                     <div className="join btn">Join Now</div>
-                    <Link to="/" className="link">
+                    <Link to="/notes" className="link">
                         Already have an account?
                     </Link>
                 </div>
