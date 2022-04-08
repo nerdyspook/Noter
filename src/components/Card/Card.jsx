@@ -1,28 +1,47 @@
 import React from "react";
+import { addNewNote } from "../../utilities/add-new-note";
 import { addArchive } from "../../utilities/add-archive";
 import { restoreArchive } from "../../utilities/restore-archive";
+import { removeArchive } from "../../utilities/remove-archive";
+import { removeNote } from "../../utilities/remove-note";
+
 import { FiEdit3 } from "react-icons/fi";
 import { BsFillPinFill } from "react-icons/bs";
 import { IoColorPaletteOutline } from "react-icons/io5";
-import { MdLabelOutline } from "react-icons/md";
+import {
+    MdLabelOutline,
+    MdOutlineRestoreFromTrash,
+    MdOutlineDeleteForever,
+} from "react-icons/md";
 import { GoArchive } from "react-icons/go";
 import { AiOutlineDelete } from "react-icons/ai";
-import "./Card.scss";
+
 import { useNote } from "../../contexts/NoteContext";
+import "./Card.scss";
 
 const Card = ({ note }) => {
     const { noteTitle, noteData, createdAt, _id } = note;
     const date = createdAt.slice(0, 10);
 
     const { stateNote, dispatchNote } = useNote();
-    const { archiveNotes } = stateNote;
+    const { archiveNotes, trashNotes } = stateNote;
 
-    const inArchive = archiveNotes.some((item) => item._id === _id);
+    const inArchive = archiveNotes.some((note) => note._id === _id);
+    const inTrash = trashNotes.some((note) => note._id === _id);
+
+    const deleteNote = () => {
+        const newNote = trashNotes.filter((note) => note._id !== _id);
+
+        dispatchNote({
+            type: "DELETE_NOTE",
+            payload: newNote,
+        });
+    };
 
     return (
         <div className="card__container">
             <div className="title">
-                <p>{noteTitle}</p>
+                <p>{noteTitle || "Empty title"}</p>
                 <div className="icons">
                     <FiEdit3
                         className="edit"
@@ -37,7 +56,7 @@ const Card = ({ note }) => {
                 </div>
             </div>
 
-            <div className="data">{noteData}</div>
+            <div className="data">{noteData || "Empty data"}</div>
 
             <div className="bottom">
                 <div className="date">Created on {date}</div>
@@ -53,7 +72,34 @@ const Card = ({ note }) => {
                                 : addArchive(_id, note, dispatchNote)
                         }
                     />
-                    <AiOutlineDelete className="trash" />
+
+                    {inTrash ? (
+                        <div className="inside__trash">
+                            <MdOutlineRestoreFromTrash
+                                className="restore__trash"
+                                onClick={() => {
+                                    deleteNote();
+                                    addNewNote(note, dispatchNote);
+                                }}
+                            />
+                            <MdOutlineDeleteForever
+                                className="detele__trash"
+                                onClick={() => deleteNote()}
+                            />
+                        </div>
+                    ) : (
+                        <AiOutlineDelete
+                            className="trash"
+                            onClick={() => {
+                                if (inArchive) {
+                                    removeArchive(_id, dispatchNote);
+                                    removeNote(_id, note, dispatchNote);
+                                } else {
+                                    removeNote(_id, note, dispatchNote);
+                                }
+                            }}
+                        />
+                    )}
                 </div>
             </div>
         </div>
