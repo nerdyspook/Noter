@@ -21,14 +21,16 @@ const Notes = () => {
                     displayNoteEditor && "overlay"
                 }`}
             >
-                <Navbar />
-                <div className="container">
+                <Navbar className="navbar" />
+                <div className="note__main container">
                     <Sidebar />
                     <div className="main__card__container">
                         <div className="search__container">
                             <Search setFilter={setFilter} />
                         </div>
-                        <Outlet />
+                        <div className="outlet__container">
+                            <Outlet className="outlet" />
+                        </div>
                     </div>
                 </div>
             </div>

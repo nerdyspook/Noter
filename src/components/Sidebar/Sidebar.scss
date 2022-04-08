@@ -1,4 +1,6 @@
 .mobile {
+    margin-top: var(--header-height);
+
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -62,8 +64,9 @@
 @media screen and (min-width: 768px) {
     .sidebar {
         margin: 0;
+        margin-top: var(--sp-5);
         width: 30%;
-
+        max-width: 18rem;
         .mobile {
             display: none;
         }
@@ -92,14 +95,14 @@
 @media screen and (min-width: 1024px) {
     .sidebar {
         max-width: 18rem;
-        margin: 0;
+        // margin: 0;
         width: 35%;
     }
 }
 
 @media screen and (min-width: 1440px) {
     .sidebar {
-        margin: 0;
+        // margin: 0;
         width: 40%;
     }
 }

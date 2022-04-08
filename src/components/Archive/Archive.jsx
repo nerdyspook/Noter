@@ -22,7 +22,7 @@ const Archive = () => {
                     ))}
                 </ul>
             ) : (
-                <div>It's Empty here</div>
+                <div className="empty">It's Empty here</div>
             )}
         </div>
     );
