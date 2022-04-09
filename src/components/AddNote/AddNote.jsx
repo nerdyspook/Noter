@@ -16,7 +16,7 @@ const AddNote = () => {
         currentEditNote?.noteData ? currentEditNote?.noteData : ""
     );
 
-    const [label, setLabel] = useState("High");
+    const [label, setLabel] = useState("Low");
 
     const add = () => {
         Object.keys(currentEditNote).length !== 0
@@ -28,7 +28,7 @@ const AddNote = () => {
                       noteData: body,
                       createdAt: new Date(),
                       color: "",
-                      labels: [],
+                      labels: label,
                       isTrash: false,
                   },
                   dispatchNote
@@ -40,7 +40,7 @@ const AddNote = () => {
                       noteData: body,
                       createdAt: new Date(),
                       color: "",
-                      labels: [],
+                      labels: label,
                       isTrash: false,
                   },
                   dispatchNote
@@ -84,8 +84,9 @@ const AddNote = () => {
 
             <div className="bottom">
                 <div className="label">
-                    Priority
+                    Priority :
                     <select
+                        className="label-input"
                         placeholder="Tags"
                         onClick={(e) => setLabel(e.target.value)}
                     >

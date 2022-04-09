@@ -28,6 +28,16 @@
         font-size: var(--small-font-size);
     }
 
+    .chip {
+        display: inline-block;
+        font-size: var(--smaller-font-size);
+        color: var(--white-color);
+        background-color: var(--secondary-color);
+        margin: 0.75rem 0 0 0;
+        padding: 0.15rem 0.75rem;
+        border-radius: 1rem;
+    }
+
     .bottom {
         display: flex;
         align-items: center;
@@ -39,5 +49,9 @@
             font-size: var(--small-font-size);
             margin-right: 1.5rem;
         }
+    }
+
+    .pinned {
+        color: var(--primary-color);
     }
 }
