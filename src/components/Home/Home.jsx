@@ -14,7 +14,7 @@ const Home = () => {
     }, []);
 
     return (
-        <div className="home__container container">
+        <div className="home__container ">
             {newNote.length !== 0 ? (
                 <ul className="note__list">
                     {newNote.map((note) => (
@@ -22,7 +22,7 @@ const Home = () => {
                     ))}
                 </ul>
             ) : (
-                <div>It's Empty here</div>
+                <div className="empty">It's Empty here</div>
             )}
         </div>
     );

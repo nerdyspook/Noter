@@ -54,6 +54,7 @@
             }
 
             .link {
+                display: block;
                 color: var(--secondary-color);
                 cursor: pointer;
             }
@@ -74,6 +75,9 @@
 
                 .join {
                     margin-left: 0;
+                }
+                .link {
+                    margin-top: 1.5rem;
                 }
             }
         }

@@ -7,7 +7,10 @@ export const NoteReducer = (stateNote, actionNote) => {
             return { ...stateNote, archiveNotes: actionNote.payload };
 
         case "ADD_TRASH":
-            return { ...stateNote, trashNotes: actionNote.payload };
+            return {
+                ...stateNote,
+                trashNotes: [...stateNote.trashNotes, actionNote.payload],
+            };
 
         case "DISPLAY_NOTE_EDITOR":
             return { ...stateNote, displayNoteEditor: actionNote.payload.show };
@@ -18,6 +21,10 @@ export const NoteReducer = (stateNote, actionNote) => {
                 currentEditNote: actionNote.payload.noteInfo,
                 displayNoteEditor: actionNote.payload.show,
             };
+
+        case "DELETE_NOTE":
+            return { ...stateNote, trashNotes: actionNote.payload };
+
         default:
             return stateNote;
     }

@@ -1,12 +1,21 @@
 import React from "react";
+import { useNote } from "../../contexts/NoteContext";
 import Card from "../Card/Card";
 import "./Trash.scss";
 
 const Trash = () => {
+    const { stateNote } = useNote();
+    const { trashNotes } = stateNote;
+
     return (
         <div className="trash__container container">
             <div className="option__title">Trash</div>
-            <Card />
+
+            {trashNotes.length !== 0 ? (
+                trashNotes.map((note) => <Card key={note._id} note={note} />)
+            ) : (
+                <div className="empty">It's Empty here</div>
+            )}
         </div>
     );
 };

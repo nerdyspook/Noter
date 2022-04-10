@@ -1,4 +1,7 @@
 .navbar__container {
+    position: fixed;
+    z-index: var(--z-fixed);
+    width: 100vw;
     height: var(--header-height);
     display: flex;
     align-items: center;

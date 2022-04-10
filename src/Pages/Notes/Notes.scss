@@ -1,3 +1,25 @@
 .container {
     padding: var(--sp-1);
 }
+
+.main__card__container {
+    margin: 0;
+    position: absolute;
+
+    width: calc(100% - 2rem);
+
+    .outlet__container {
+        right: 1rem;
+        width: 100%;
+        margin-top: 0.5rem;
+
+        display: flex;
+        justify-content: center;
+    }
+
+    @media screen and (min-width: 768px) {
+        top: 5rem;
+        left: 35%;
+        width: 60%;
+    }
+}
