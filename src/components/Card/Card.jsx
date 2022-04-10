@@ -64,7 +64,7 @@ const Card = ({ note }) => {
                         }
                     />
                     <BsFillPinFill
-                        className={`pin ${isPinned && "pinned"}`}
+                        className={`pin ${pinned && "pinned"}`}
                         onClick={() => {
                             const pinNote = { ...note, isPinned: !isPinned };
                             editNote(_id, pinNote, dispatchNote);

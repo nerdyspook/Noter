@@ -1,22 +1,16 @@
 export const filterReducer = (stateFilter, actionFilter) => {
     switch (actionFilter.type) {
-        case "LOW":
-            return {
-                ...stateFilter,
-                priority: {
-                    ...stateFilter["priority"],
-                    low: !stateFilter.priority.low,
-                },
-            };
+        case "CLEAR":
+            return { ...stateFilter, search: "", sort: "", filterLabels: "" };
 
-        case "HIGH":
-            return {
-                ...stateFilter,
-                priority: {
-                    ...stateFilter["priority"],
-                    high: !stateFilter.priority.high,
-                },
-            };
+        case "SEARCH":
+            return { ...stateFilter, search: actionFilter.payload };
+
+        case "SORT":
+            return { ...stateFilter, sort: actionFilter.payload };
+
+        case "LABELS":
+            return { ...stateFilter, filterLabels: actionFilter.payload };
 
         default:
             return stateFilter;

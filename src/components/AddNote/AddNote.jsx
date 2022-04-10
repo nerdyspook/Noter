@@ -27,6 +27,7 @@ const AddNote = () => {
                       isPinned: false,
                       noteData: body,
                       createdAt: new Date(),
+                      createTiming: Date.now(),
                       color: "",
                       labels: label,
                       isTrash: false,
@@ -39,6 +40,7 @@ const AddNote = () => {
                       isPinned: false,
                       noteData: body,
                       createdAt: new Date(),
+                      createTiming: Date.now(),
                       color: "",
                       labels: label,
                       isTrash: false,
@@ -53,8 +55,6 @@ const AddNote = () => {
     return (
         <div className="newnote__container">
             <div className="top">
-                {/* <div className="title">Add a new note</div> */}
-
                 <AiOutlineClose
                     className="close_btn"
                     onClick={() =>

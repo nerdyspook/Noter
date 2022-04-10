@@ -5,7 +5,9 @@ const FIlterContext = createContext(null);
 
 const FilterContextProvider = ({ children }) => {
     const [stateFilter, dispatchFilter] = useReducer(filterReducer, {
-        priority: { high: false, low: false },
+        search: "",
+        sort: "",
+        filterLabels: "",
     });
 
     return (

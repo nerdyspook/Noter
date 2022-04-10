@@ -1,16 +1,11 @@
 import React from "react";
 import { useNote } from "../../contexts/NoteContext";
-import { useFilter } from "../../contexts/FilterContext";
 import Card from "../Card/Card";
 import "./Labels.scss";
 
 const Labels = () => {
     const { stateNote } = useNote();
     const { newNote } = stateNote;
-
-    const { stateFilter, dispatchFilter } = useFilter();
-    const { priority } = stateFilter;
-    const { low, high } = priority;
 
     const highNotes = newNote.filter((note) => note.labels === "High");
     const lowNotes = newNote.filter((note) => note.labels === "Low");
