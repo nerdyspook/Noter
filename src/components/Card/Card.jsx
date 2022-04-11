@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { BlockPicker } from "react-color";
+
 import { addNewNote } from "../../utilities/add-new-note";
 import { addArchive } from "../../utilities/add-archive";
 import { restoreArchive } from "../../utilities/restore-archive";
@@ -21,8 +23,14 @@ import { useNote } from "../../contexts/NoteContext";
 import "./Card.scss";
 
 const Card = ({ note }) => {
-    const { noteTitle, noteData, createdAt, _id, labels, isPinned } = note;
+    const { noteTitle, noteData, createdAt, _id, labels, isPinned, color } =
+        note;
     const date = createdAt.slice(0, 10);
+
+    const [showPicker, setShowPicker] = useState(false);
+    const [bgColor, setBgColor] = useState(color);
+
+    note.color = bgColor;
 
     const { stateNote, dispatchNote } = useNote();
     const { archiveNotes, trashNotes } = stateNote;
@@ -50,81 +58,101 @@ const Card = ({ note }) => {
     };
 
     return (
-        <div className="card__container">
-            <div className="title">
-                <p>{noteTitle || "Empty title"}</p>
-                <div className="icons">
-                    <FiEdit3
-                        className="edit"
-                        onClick={() =>
-                            dispatchNote({
-                                type: "EDIT",
-                                payload: { show: true, noteInfo: note },
-                            })
-                        }
-                    />
-                    <BsFillPinFill
-                        className={`pin ${pinned && "pinned"}`}
-                        onClick={() => {
-                            const pinNote = { ...note, isPinned: !isPinned };
-                            editNote(_id, pinNote, dispatchNote);
-                            setPinned((prevPin) => !prevPin);
-                        }}
-                    />
-                </div>
-            </div>
-
-            <div className="data">{noteData || "Empty data"}</div>
-            <div className="chip">{labels}</div>
-
-            <div className="bottom">
-                <div className="date">Created on {date}</div>
-                <div className="icons">
-                    <IoColorPaletteOutline className="paint" />
-                    <MdLabelOutline
-                        className="tag"
-                        onClick={() => changeLabel(note)}
-                    />
-                    <GoArchive
-                        className="archive"
-                        style={{ color: `${inArchive && "#fb923c"}` }}
-                        onClick={() =>
-                            inArchive
-                                ? restoreArchive(_id, dispatchNote)
-                                : addArchive(_id, note, dispatchNote)
-                        }
-                    />
-
-                    {inTrash ? (
-                        <div className="inside__trash">
-                            <MdOutlineRestoreFromTrash
-                                className="restore__trash"
-                                onClick={() => {
-                                    deleteNote();
-                                    addNewNote(note, dispatchNote);
-                                }}
-                            />
-                            <MdOutlineDeleteForever
-                                className="detele__trash"
-                                onClick={() => deleteNote()}
-                            />
-                        </div>
-                    ) : (
-                        <AiOutlineDelete
-                            className="trash"
+        <>
+            <div className="card__container" style={{ backgroundColor: color }}>
+                <div className="title">
+                    <p>{noteTitle || "Empty title"}</p>
+                    <div className="icons">
+                        <FiEdit3
+                            className="edit"
+                            onClick={() =>
+                                dispatchNote({
+                                    type: "EDIT",
+                                    payload: { show: true, noteInfo: note },
+                                })
+                            }
+                        />
+                        <BsFillPinFill
+                            className={`pin ${pinned && "pinned"}`}
                             onClick={() => {
-                                if (inArchive) {
-                                    removeArchive(_id, dispatchNote);
-                                    removeNote(_id, note, dispatchNote);
-                                } else {
-                                    removeNote(_id, note, dispatchNote);
-                                }
+                                const pinNote = {
+                                    ...note,
+                                    isPinned: !isPinned,
+                                };
+                                editNote(_id, pinNote, dispatchNote);
+                                setPinned((prevPin) => !prevPin);
                             }}
                         />
-                    )}
+                    </div>
+                </div>
+
+                <div className="data">{noteData || "Empty data"}</div>
+                <div className="chip">{labels}</div>
+
+                <div className="bottom">
+                    <div className="date">Created on {date}</div>
+                    <div className="icons">
+                        <IoColorPaletteOutline
+                            className="paint"
+                            onClick={() =>
+                                setShowPicker((prevValue) => !prevValue)
+                            }
+                        />
+                        <MdLabelOutline
+                            className="tag"
+                            onClick={() => changeLabel(note)}
+                        />
+                        <GoArchive
+                            className="archive"
+                            style={{ color: `${inArchive && "#fb923c"}` }}
+                            onClick={() => {
+                                note.color = bgColor;
+                                inArchive
+                                    ? restoreArchive(_id, dispatchNote)
+                                    : addArchive(_id, note, dispatchNote);
+                            }}
+                        />
+
+                        {inTrash ? (
+                            <div className="inside__trash">
+                                <MdOutlineRestoreFromTrash
+                                    className="restore__trash"
+                                    onClick={() => {
+                                        deleteNote();
+                                        addNewNote(note, dispatchNote);
+                                    }}
+                                />
+                                <MdOutlineDeleteForever
+                                    className="detele__trash"
+                                    onClick={() => deleteNote()}
+                                />
+                            </div>
+                        ) : (
+                            <AiOutlineDelete
+                                className="trash"
+                                onClick={() => {
+                                    if (inArchive) {
+                                        removeArchive(_id, dispatchNote);
+                                        removeNote(_id, note, dispatchNote);
+                                    } else {
+                                        removeNote(_id, note, dispatchNote);
+                                    }
+                                }}
+                            />
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
+            {showPicker && (
+                <BlockPicker
+                    triangle="hide"
+                    color={bgColor}
+                    onChange={(updatedColor) => {
+                        setBgColor(updatedColor.hex);
+                    }}
+                />
+            )}
+        </>
     );
 };
 

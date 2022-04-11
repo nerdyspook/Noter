@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const loadNewNotes = async (dispatchNote) => {
+export const loadNewNotes = async (dispatchNote, navigate) => {
     const token = localStorage.getItem("token");
 
     try {
@@ -12,10 +12,15 @@ export const loadNewNotes = async (dispatchNote) => {
             },
         });
 
+        if (response.status === 500) {
+            navigate("/login");
+        }
+
         if (response.status === 200) {
             dispatchNote({ type: "ADD_NOTE", payload: response.data.notes });
         }
     } catch (e) {
         console.log("Error: ", e);
+        navigate("/login");
     }
 };
