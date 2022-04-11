@@ -4,8 +4,9 @@ import Card from "../Card/Card";
 import "./Labels.scss";
 
 const Labels = () => {
-    const { stateNote } = useNote();
-    const { newNote } = stateNote;
+    const {
+        stateNote: { newNote },
+    } = useNote();
 
     const highNotes = newNote.filter((note) => note.labels === "High");
     const lowNotes = newNote.filter((note) => note.labels === "Low");

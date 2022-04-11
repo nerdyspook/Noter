@@ -11,13 +11,13 @@ import { editNote } from "../../utilities/edit-notes";
 import { FiEdit3 } from "react-icons/fi";
 import { BsFillPinFill } from "react-icons/bs";
 import { IoColorPaletteOutline } from "react-icons/io5";
+import { AiOutlineDelete } from "react-icons/ai";
+import { GoArchive } from "react-icons/go";
 import {
     MdLabelOutline,
     MdOutlineRestoreFromTrash,
     MdOutlineDeleteForever,
 } from "react-icons/md";
-import { GoArchive } from "react-icons/go";
-import { AiOutlineDelete } from "react-icons/ai";
 
 import { useNote } from "../../contexts/NoteContext";
 import "./Card.scss";
@@ -34,6 +34,7 @@ const Card = ({ note }) => {
 
     const { stateNote, dispatchNote } = useNote();
     const { archiveNotes, trashNotes } = stateNote;
+
 
     const inArchive = archiveNotes.some((note) => note._id === _id);
     const inTrash = trashNotes.some((note) => note._id === _id);

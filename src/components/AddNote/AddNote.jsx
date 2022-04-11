@@ -6,8 +6,10 @@ import { editNote } from "../../utilities/edit-notes";
 import "./AddNote.scss";
 
 const AddNote = () => {
-    const { stateNote, dispatchNote } = useNote();
-    const { currentEditNote } = stateNote;
+    const {
+        stateNote: { currentEditNote },
+        dispatchNote,
+    } = useNote();
 
     const [title, setTitle] = useState(
         currentEditNote?.noteTitle ? currentEditNote?.noteTitle : ""

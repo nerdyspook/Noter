@@ -12,11 +12,15 @@ import { sortNotes } from "../../utilities/sort";
 import { useFilter } from "../../contexts/FilterContext";
 
 const Home = () => {
-    const { stateNote, dispatchNote } = useNote();
-    const { newNote } = stateNote;
+    const {
+        stateNote: { newNote },
+        dispatchNote,
+    } = useNote();
 
-    const { stateFilter, dispatchFilter } = useFilter();
-    const { search, sort, filterLabels } = stateFilter;
+    const {
+        stateFilter: { search, sort, filterLabels },
+        dispatchFilter,
+    } = useFilter();
 
     const pinnedNotes = newNote.filter((note) => note.isPinned);
 
@@ -35,7 +39,6 @@ const Home = () => {
             <div
                 className="btn clear"
                 onClick={() => {
-                    console.log("clicked");
                     dispatchFilter({ type: "CLEAR" });
                 }}
             >

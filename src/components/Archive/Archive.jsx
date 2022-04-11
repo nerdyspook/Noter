@@ -5,8 +5,10 @@ import Card from "../Card/Card";
 import "./Archive.scss";
 
 const Archive = () => {
-    const { stateNote, dispatchNote } = useNote();
-    const { archiveNotes } = stateNote;
+    const {
+        stateNote: { archiveNotes },
+        dispatchNote,
+    } = useNote();
 
     useEffect(() => {
         loadArchive(dispatchNote);
