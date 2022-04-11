@@ -6,8 +6,10 @@ import { editNote } from "../../utilities/edit-notes";
 import "./AddNote.scss";
 
 const AddNote = () => {
-    const { stateNote, dispatchNote } = useNote();
-    const { currentEditNote } = stateNote;
+    const {
+        stateNote: { currentEditNote },
+        dispatchNote,
+    } = useNote();
 
     const [title, setTitle] = useState(
         currentEditNote?.noteTitle ? currentEditNote?.noteTitle : ""
@@ -16,7 +18,7 @@ const AddNote = () => {
         currentEditNote?.noteData ? currentEditNote?.noteData : ""
     );
 
-    const [label, setLabel] = useState("High");
+    const [label, setLabel] = useState("Low");
 
     const add = () => {
         Object.keys(currentEditNote).length !== 0
@@ -27,8 +29,9 @@ const AddNote = () => {
                       isPinned: false,
                       noteData: body,
                       createdAt: new Date(),
+                      createTiming: Date.now(),
                       color: "",
-                      labels: [],
+                      labels: label,
                       isTrash: false,
                   },
                   dispatchNote
@@ -39,8 +42,9 @@ const AddNote = () => {
                       isPinned: false,
                       noteData: body,
                       createdAt: new Date(),
+                      createTiming: Date.now(),
                       color: "",
-                      labels: [],
+                      labels: label,
                       isTrash: false,
                   },
                   dispatchNote
@@ -53,8 +57,6 @@ const AddNote = () => {
     return (
         <div className="newnote__container">
             <div className="top">
-                {/* <div className="title">Add a new note</div> */}
-
                 <AiOutlineClose
                     className="close_btn"
                     onClick={() =>
@@ -84,8 +86,9 @@ const AddNote = () => {
 
             <div className="bottom">
                 <div className="label">
-                    Priority
+                    Priority :
                     <select
+                        className="label-input"
                         placeholder="Tags"
                         onClick={(e) => setLabel(e.target.value)}
                     >

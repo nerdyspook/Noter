@@ -5,9 +5,28 @@ import { loadNewNotes } from "../../utilities/load-new-note";
 import "./Home.scss";
 import { useNote } from "../../contexts/NoteContext";
 
+import { searchNotes } from "../../utilities/search";
+import { filterNotes } from "../../utilities/filter";
+import { sortNotes } from "../../utilities/sort";
+import { useFilter } from "../../contexts/FilterContext";
+
 const Home = () => {
-    const { stateNote, dispatchNote } = useNote();
-    const { newNote } = stateNote;
+    const {
+        stateNote: { newNote },
+        dispatchNote,
+    } = useNote();
+
+    const {
+        stateFilter: { search, sort, filterLabels },
+        dispatchFilter,
+    } = useFilter();
+
+    const pinnedNotes = newNote.filter((note) => note.isPinned);
+
+    const notPinnedNotes = newNote.filter((note) => !note.isPinned);
+    const searchedNotes = searchNotes(notPinnedNotes, search);
+    const filteredNotes = filterNotes(searchedNotes, filterLabels);
+    const sortedNotes = sortNotes(filteredNotes, sort);
 
     useEffect(() => {
         loadNewNotes(dispatchNote);
@@ -15,9 +34,30 @@ const Home = () => {
 
     return (
         <div className="home__container ">
-            {newNote.length !== 0 ? (
+            <div
+                className="btn clear"
+                onClick={() => {
+                    dispatchFilter({ type: "CLEAR" });
+                }}
+            >
+                Clear all
+            </div>
+
+            {pinnedNotes.length !== 0 ? (
+                <div className="pinned__notes">
+                    <div className="pinned__title">Pinned Notes :</div>
+                    {pinnedNotes.map((note) => (
+                        <Card key={note._id} note={note} />
+                    ))}
+                </div>
+            ) : (
+                <div></div>
+            )}
+
+            <div className="other">Other Notes :</div>
+            {sortedNotes.length !== 0 ? (
                 <ul className="note__list">
-                    {newNote.map((note) => (
+                    {sortedNotes.map((note) => (
                         <Card key={note._id} note={note} />
                     ))}
                 </ul>

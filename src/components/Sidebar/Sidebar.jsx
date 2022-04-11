@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { MdLabelOutline } from "react-icons/md";
+import { GoArchive } from "react-icons/go";
+import { CgProfile } from "react-icons/cg";
+import { useNote } from "../../contexts/NoteContext";
 import {
     AiOutlineDelete,
     AiOutlineHome,
     AiOutlineDownSquare,
 } from "react-icons/ai";
-import { MdLabelOutline } from "react-icons/md";
-import { GoArchive } from "react-icons/go";
-import { CgProfile } from "react-icons/cg";
 import "./Sidebar.scss";
-import { useNote } from "../../contexts/NoteContext";
 
 const Sidebar = () => {
     const { dispatchNote } = useNote();
     const [showMobile, setShowMobile] = useState(false);
+
     return (
         <section className="sidebar">
             <div className="mobile">

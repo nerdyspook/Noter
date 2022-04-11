@@ -1,33 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { addNewNote } from "../../utilities/add-new-note";
 import { addArchive } from "../../utilities/add-archive";
 import { restoreArchive } from "../../utilities/restore-archive";
 import { removeArchive } from "../../utilities/remove-archive";
 import { removeNote } from "../../utilities/remove-note";
+import { editNote } from "../../utilities/edit-notes";
 
 import { FiEdit3 } from "react-icons/fi";
 import { BsFillPinFill } from "react-icons/bs";
 import { IoColorPaletteOutline } from "react-icons/io5";
+import { AiOutlineDelete } from "react-icons/ai";
+import { GoArchive } from "react-icons/go";
 import {
     MdLabelOutline,
     MdOutlineRestoreFromTrash,
     MdOutlineDeleteForever,
 } from "react-icons/md";
-import { GoArchive } from "react-icons/go";
-import { AiOutlineDelete } from "react-icons/ai";
 
 import { useNote } from "../../contexts/NoteContext";
 import "./Card.scss";
 
 const Card = ({ note }) => {
-    const { noteTitle, noteData, createdAt, _id } = note;
+    const { noteTitle, noteData, createdAt, _id, labels, isPinned } = note;
     const date = createdAt.slice(0, 10);
 
-    const { stateNote, dispatchNote } = useNote();
-    const { archiveNotes, trashNotes } = stateNote;
+    const {
+        stateNote: { archiveNotes, trashNotes },
+        dispatchNote,
+    } = useNote();
 
     const inArchive = archiveNotes.some((note) => note._id === _id);
     const inTrash = trashNotes.some((note) => note._id === _id);
+
+    const [label, setLabel] = useState(labels);
+    const [pinned, setPinned] = useState(isPinned);
 
     const deleteNote = () => {
         const newNote = trashNotes.filter((note) => note._id !== _id);
@@ -36,6 +42,13 @@ const Card = ({ note }) => {
             type: "DELETE_NOTE",
             payload: newNote,
         });
+    };
+
+    const changeLabel = (note) => {
+        const change = label === "Low" ? "High" : "Low";
+        setLabel(change);
+        const labelNote = { ...note, labels: change };
+        editNote(_id, labelNote, dispatchNote);
     };
 
     return (
@@ -52,17 +65,28 @@ const Card = ({ note }) => {
                             })
                         }
                     />
-                    <BsFillPinFill className="pin" />
+                    <BsFillPinFill
+                        className={`pin ${pinned && "pinned"}`}
+                        onClick={() => {
+                            const pinNote = { ...note, isPinned: !isPinned };
+                            editNote(_id, pinNote, dispatchNote);
+                            setPinned((prevPin) => !prevPin);
+                        }}
+                    />
                 </div>
             </div>
 
             <div className="data">{noteData || "Empty data"}</div>
+            <div className="chip">{labels}</div>
 
             <div className="bottom">
                 <div className="date">Created on {date}</div>
                 <div className="icons">
                     <IoColorPaletteOutline className="paint" />
-                    <MdLabelOutline className="tag" />
+                    <MdLabelOutline
+                        className="tag"
+                        onClick={() => changeLabel(note)}
+                    />
                     <GoArchive
                         className="archive"
                         style={{ color: `${inArchive && "#fb923c"}` }}

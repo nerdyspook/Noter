@@ -4,8 +4,9 @@ import Card from "../Card/Card";
 import "./Trash.scss";
 
 const Trash = () => {
-    const { stateNote } = useNote();
-    const { trashNotes } = stateNote;
+    const {
+        stateNote: { trashNotes },
+    } = useNote();
 
     return (
         <div className="trash__container container">
