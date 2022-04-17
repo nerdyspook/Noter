@@ -80,6 +80,20 @@ const Login = () => {
                     Log In
                 </div>
 
+                <div
+                    className="btn login__btn"
+                    onClick={() => {
+                        loginUser(
+                            "test@gmail.com",
+                            "test",
+                            dispatchAuth,
+                            navigate
+                        );
+                    }}
+                >
+                    Log In as Guest
+                </div>
+
                 <div className="login__container">
                     <p>
                         Not a Member?
