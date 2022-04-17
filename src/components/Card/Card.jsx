@@ -30,11 +30,8 @@ const Card = ({ note }) => {
     const [showPicker, setShowPicker] = useState(false);
     const [bgColor, setBgColor] = useState(color);
 
-    note.color = bgColor;
-
     const { stateNote, dispatchNote } = useNote();
     const { archiveNotes, trashNotes } = stateNote;
-
 
     const inArchive = archiveNotes.some((note) => note._id === _id);
     const inTrash = trashNotes.some((note) => note._id === _id);
@@ -60,7 +57,10 @@ const Card = ({ note }) => {
 
     return (
         <>
-            <div className="card__container" style={{ backgroundColor: color }}>
+            <div
+                className="card__container"
+                style={{ backgroundColor: bgColor }}
+            >
                 <div className="title">
                     <p>{noteTitle || "Empty title"}</p>
                     <div className="icons">
@@ -149,6 +149,13 @@ const Card = ({ note }) => {
                     triangle="hide"
                     color={bgColor}
                     onChange={(updatedColor) => {
+                        let tempColor = updatedColor.hex;
+
+                        editNote(
+                            _id,
+                            { ...note, color: tempColor },
+                            dispatchNote
+                        );
                         setBgColor(updatedColor.hex);
                     }}
                 />
