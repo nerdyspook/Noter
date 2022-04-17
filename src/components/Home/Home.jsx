@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Card from "../Card/Card";
 
 import { loadNewNotes } from "../../utilities/load-new-note";
@@ -28,8 +29,9 @@ const Home = () => {
     const filteredNotes = filterNotes(searchedNotes, filterLabels);
     const sortedNotes = sortNotes(filteredNotes, sort);
 
+    const navigate = useNavigate();
     useEffect(() => {
-        loadNewNotes(dispatchNote);
+        loadNewNotes(dispatchNote, navigate);
     }, []);
 
     return (
