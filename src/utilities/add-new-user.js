@@ -27,14 +27,9 @@ export const addNewUser = async (
             });
             localStorage.setItem("token", response.data.encodedToken);
             localStorage.setItem(
-                "firstName",
-                response.data.createdUser.firstName
+                "user",
+                JSON.stringify(response.data.createdUser)
             );
-            localStorage.setItem(
-                "lastName",
-                response.data.createdUser.lastName
-            );
-            localStorage.setItem("email", response.data.createdUser.email);
             navigate("/notes");
         }
     } catch (e) {

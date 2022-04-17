@@ -16,15 +16,12 @@ export const loginUser = async (email, password, dispatchAuth, navigate) => {
                 type: "GET_USER_DETAILS",
                 payload: response.data.foundUser,
             });
-            console.log(response);
+
             localStorage.setItem("token", response.data.encodedToken);
             localStorage.setItem(
-                "firstName",
-                response.data.foundUser.firstName
+                "user",
+                JSON.stringify(response.data.foundUser)
             );
-            localStorage.setItem("lastName", response.data.foundUser.lastName);
-            localStorage.setItem("email", response.data.foundUser.email);
-
             navigate("/notes");
         }
     } catch (e) {

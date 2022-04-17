@@ -14,26 +14,35 @@
     .data {
         margin-top: 1rem;
         text-align: center;
+        width: max-content;
+
+        .firstname,
+        .lastname,
+        .email {
+            font-weight: var(--font-semi-bold);
+            text-align: left;
+
+            span {
+                font-weight: var(--font-regular);
+            }
+        }
     }
 }
 
 @media screen and (min-width: 768px) {
     .profile__container {
-        margin-left: 35%;
         width: 65%;
     }
 }
 
 @media screen and (min-width: 1024px) {
     .profile__container {
-        margin-left: 30%;
         width: 70%;
     }
 }
 
 @media screen and (min-width: 1440px) {
     .profile__container {
-        margin-left: 25%;
         width: 75%;
     }
 }
