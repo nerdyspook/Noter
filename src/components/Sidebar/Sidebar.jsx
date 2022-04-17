@@ -65,6 +65,7 @@ const Sidebar = () => {
             <div
                 className="btn"
                 onClick={() => {
+                    dispatchNote({ type: "REMOVE_EDIT" });
                     dispatchNote({
                         type: "DISPLAY_NOTE_EDITOR",
                         payload: { show: true },

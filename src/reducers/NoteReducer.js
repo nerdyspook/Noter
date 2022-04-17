@@ -25,6 +25,8 @@ export const NoteReducer = (stateNote, actionNote) => {
         case "DELETE_NOTE":
             return { ...stateNote, trashNotes: actionNote.payload };
 
+        case "REMOVE_EDIT":
+            return { ...stateNote, currentEditNote: [] };
         default:
             return stateNote;
     }
