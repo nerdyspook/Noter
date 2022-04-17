@@ -3,7 +3,7 @@ export const AuthReducer = (stateAuth, actionAuth) => {
         case "GET_USER_DETAILS":
             return {
                 ...stateAuth,
-                userDetails: [actionAuth.payload],
+                userDetails: actionAuth.payload,
                 isAuth: true,
             };
 

@@ -7,7 +7,7 @@ const AuthContextProvider = ({ children }) => {
     const oldToken = localStorage.getItem("token");
 
     const [stateAuth, dispatchAuth] = useReducer(AuthReducer, {
-        userDetails: [],
+        userDetails: {},
         token: oldToken ?? "",
         isAuth: oldToken ? true : false,
     });
